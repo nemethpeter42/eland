@@ -1,12 +1,18 @@
+/*import { run } from "./app/app";
+import "./main.scss";
+import { AlertService } from "./app/alert.service";
+import { ComponentService } from "./app/component.service";
+const alertService = new AlertService();
+const componentService = new ComponentService();
+run(alertService, componentService);
+console.log("J");
+*/
+
+import {Summary} from './components/summary'
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-
-ReactDOM.render(<App />, document.getElementById('root'));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const title = 'React with Webpack and Babel';
+ReactDOM.render(
+  <Summary />,
+  document.getElementById('app')
+);

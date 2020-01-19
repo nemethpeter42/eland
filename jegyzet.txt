@@ -1,0 +1,6 @@
+telepites:
+
+yarn install webpack
+yarn add @material-ui/core
+
+npm install --save-dev @babel/preset-react
