@@ -3,3 +3,53 @@ $primary: teal;
 $danger: purple;
 @import "~bootstrap/scss/bootstrap";
 */
+
+body {
+	font-size:20px;
+	max-width: 1400px;
+}
+
+.foreign-word{
+	font-size: 1.25em;
+	font-weight: bold;
+	color: rgba(64, 0, 32,1);
+}
+
+.meaning{
+	max-width: 450px
+}
+
+.meaning > .meaning-group:first-child{border-radius: 8px 8px 0 0}
+.meaning > .meaning-group:last-child {border-radius: 0 0 8px 8px}
+
+.primary-meaning{
+	font-weight: bold;
+}
+
+.random-light-color-1{
+	background-color: rgba(204, 255, 255,1);
+}
+
+.random-light-color-2{
+	background-color: rgba(255, 255, 204,1);
+}
+
+.random-light-color-3{
+	background-color: rgba(255, 232, 255,1);
+}
+
+.random-light-color-4{
+	background-color: rgba(228, 255, 202,1);
+}
+
+.random-light-color-5{
+	background-color: rgba(255, 217, 179,1);
+}
+
+.meaning-group{
+	padding: 4px 8px;
+}
+
+.meaning-group-level-comment{
+	font-style: italic;
+}

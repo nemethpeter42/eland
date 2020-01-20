@@ -7,7 +7,7 @@ const componentService = new ComponentService();
 run(alertService, componentService);
 console.log("J");
 */
-
+import "./main.scss";
 import {Summary} from './components/summary'
 import React from 'react';
 import ReactDOM from 'react-dom';
