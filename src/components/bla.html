@@ -1,0 +1,34 @@
+<meta charset='utf-8' />
+<script>
+	function splitStringWithoutScanningParenthesesContent(str,delimiter){
+		let isInsideRoundBrackets = false;
+		let isInsideSquareBrackets = false;
+		let splittingPoints = []
+		for(let i=0;i<str.length;++i){
+			if (isInsideRoundBrackets!==true && isInsideSquareBrackets!==true){
+				if (str[i] === '(') {
+					isInsideRoundBrackets = true
+				} else if (str[i] === '[') {
+					isInsideSquareBrackets = true
+				}
+			} else if (isInsideRoundBrackets===true && str[i] === ')') {
+				isInsideRoundBrackets=false
+			} else if (isInsideSquareBrackets===true && str[i] === ']') {
+				isInsideSquareBrackets=false
+			} else {
+				
+			}
+		}
+	}
+	
+	function parseRawMeanings(meanings){
+		let meaningGroupDelimiter = ';'
+		let meaningGroupsRaw = meanings.split(meaningGroupDelimiter).map(e => e.trim()).filter(e => e!=='')
+		//let meaningGroups = 
+		meaningGroupsRaw.forEach(e => {
+			let commentsAndTags= e.match(/\s*\[[^\]]*\]\s*/g)
+			console.log(commentsAndTags)
+		})
+	}
+	
+</script>
