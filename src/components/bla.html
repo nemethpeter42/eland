@@ -1,8 +1,21 @@
+
+
 <meta charset='utf-8' />
 <script>
+// megoldás (inkább!); megszüntetés, megszűnés; oldás, oldódás (le~/fel~); oldat; kiszabadulás; kiszabadítás;
+// [ "megoldás (inkább!)", "megszüntetés, megszűnés", "oldás, oldódás (le~/fel~)", "oldat", "kiszabadulás", "kiszabadítás" ]
+// 
+// TODO: set-be a kiescapelt karakterek pozicioit, amiket tilos figyelni 
+// ;;  (( )) [[ ]] // 
+// ,, (csak zárójelen kívül kéne, de inkább mindenhol fusson le a végén a ,,->, rutin)
+// !! (sima és kapcsos zárójelben)
+
+// TODO: előbb bonts perjelet mielőtt kiemeled a zárójelet
+// ilyen / olyan / milyen (mily, pl. ~ finom anyag) / micsoda (~ véletlen) 
 	function splitStringWithoutScanningParenthesesContent(str,delimiter){
 		let isInsideRoundBrackets = false;
 		let isInsideSquareBrackets = false;
+		let resultArray = []
 		let splittingPoints = []
 		for(let i=0;i<str.length;++i){
 			if (isInsideRoundBrackets!==true && isInsideSquareBrackets!==true){
@@ -10,25 +23,46 @@
 					isInsideRoundBrackets = true
 				} else if (str[i] === '[') {
 					isInsideSquareBrackets = true
+				} else if (str[i] === delimiter) {
+					splittingPoints.push(i)
 				}
+				
 			} else if (isInsideRoundBrackets===true && str[i] === ')') {
 				isInsideRoundBrackets=false
 			} else if (isInsideSquareBrackets===true && str[i] === ']') {
 				isInsideSquareBrackets=false
-			} else {
-				
 			}
 		}
+		// two delimiters after each other means escaping
+		for(let i=1;i<splittingPoints.length;++i){
+			if (splittingPoints[i-1] === splittingPoints[i]-1){
+				splittingPoints.splice(i-1, 2)
+			}
+		}
+		splittingPoints = [-1 ,...splittingPoints,str.length]
+		// starting with second element
+		for(let i=1;i<splittingPoints.length;++i){
+			resultArray.push(str.substring(splittingPoints[i-1]+1,splittingPoints[i]).trim().replace(new RegExp(delimiter+delimiter+'+',"g"), delimiter));
+		}
+		resultArray = resultArray.filter(e => e!=='')
+		return resultArray
 	}
 	
-	function parseRawMeanings(meanings){
+	function parseRawData(foreignWord,meanings){
 		let meaningGroupDelimiter = ';'
-		let meaningGroupsRaw = meanings.split(meaningGroupDelimiter).map(e => e.trim()).filter(e => e!=='')
-		//let meaningGroups = 
+		let closeMeaningsDelimiter = ','
+		let rawArrays = splitStringWithoutScanningParenthesesContent(meanings,meaningGroupDelimiter).
+		                    map(e => splitStringWithoutScanningParenthesesContent(e, closeMeaningsDelimiter))
+		/*let result = {
+			foreignWord: foreignWord,
+			meanings: ,
+		}*/
+		console.log(rawArrays)
+		/*let meaningGroupsRaw = meanings.split(meaningGroupDelimiter).map(e => e.trim()).filter(e => e!=='')
 		meaningGroupsRaw.forEach(e => {
-			let commentsAndTags= e.match(/\s*\[[^\]]*\]\s*/g)
+			let commentsAndTags= e.match(/\s*\[[^\]]*\]\s* /g)
 			console.log(commentsAndTags)
-		})
+		})*/
 	}
 	
 </script>
