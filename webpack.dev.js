@@ -7,7 +7,8 @@ module.exports = merge(common, {
   mode: "development",
   output: {
     filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist")
+    path: path.resolve(__dirname, "dist"),
+	publicPath: '/', // Stack Overflow: react-router-dom BrowserRouter not navigating to paths with more than one url parameter
   },
   plugins: [
     new HtmlWebpackPlugin({
