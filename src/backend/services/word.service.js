@@ -28,7 +28,7 @@ class WordService{
 	constructor(){
 		this.linkService = LinkService.getInstance()
 		let rawData 
-		papa.parse(fs.readFileSync('test_input.csv', { encoding: 'utf-8' }), {
+		papa.parse(fs.readFileSync('japan_szoszedet.csv', { encoding: 'utf-8' }), {
 			header:true,
 			skipEmptyLines:true,
 			complete: results => {rawData = results},

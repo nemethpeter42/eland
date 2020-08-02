@@ -53,8 +53,64 @@ class LinkService{
 			return pages
 		}
 		//TODO  dinamikussá tenni
-		languageCodes = ['de']
-		let data = {
+		languageCodes = ['ja']
+		let commonReferenceSites = [
+			{
+				siteName: 'Google',
+				siteMainPage: 'https://www.google.com',
+				pageGroups: [
+					{
+						groupMainPage: 'https://www.google.com',
+						title: 'Szöveges keresés',
+						pages: [
+							...firstNWordVariations( word ,inp => ({
+								title: 'Keresés(' +inp + ')',
+								url: 'https://www.google.com/search?q='+inp,
+							})),
+						],
+					},
+					{
+						groupMainPage: 'https://www.google.com',
+						title: 'Képkereső',
+						pages: [
+							...firstNWordVariations( word ,inp => ({
+								title: 'Keresés(' +inp + ')',
+								url: 'https://www.google.com/search?q='+inp + '&tbm=isch',
+							})),
+						],
+					},
+				],
+			},
+		]
+		let languageSpecificReferenceSites = {
+			'ja':[
+				{
+					siteName: 'Jisho',
+					siteMainPage: 'https://www.jisho.org',
+					pageGroups: [
+						{
+							groupMainPage: 'https://www.jisho.org',
+							title: 'Keresés',
+							pages: [
+								...firstNWordVariations( word ,inp => ({
+									title: 'Keresés(' +inp + ')',
+									url: 'https://www.jisho.org/search/'+inp,
+								})),
+							],
+						},
+						{
+							groupMainPage: 'https://www.jisho.org',
+							title: 'Példamondatok',
+							pages: [
+								...firstNWordVariations( word ,inp => ({
+									title: 'Keresés(' +inp + ')',
+									url: 'https://www.jisho.org/search/'+inp+' %23sentences',
+								})),
+							],
+						},
+					],
+				},
+			],
 			'de':[
 				{
 					siteName: 'Duden',
@@ -152,7 +208,7 @@ class LinkService{
 			]
 		}
 		let result = {}
-		languageCodes.forEach(e=> result[e]=data[e])
+		languageCodes.forEach(e=> result[e]=commonReferenceSites.concat(languageSpecificReferenceSites[e]))
 		return result;
 		
 	}
