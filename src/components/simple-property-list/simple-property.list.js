@@ -7,7 +7,7 @@ class SimplePropertyList extends React.Component{
 		super(props)
 		console.log(props)
 		this.state = {
-			propertiesOfEntry : {},
+			entry : {},
 		}
 	}
 	
@@ -18,26 +18,26 @@ class SimplePropertyList extends React.Component{
 		
 		const listPropertiesOfEntry = (obj) => 
 		{
-			return obj!==undefined ? (Object.keys(obj).map(e => {
+			return obj!==undefined ? (Object.keys(obj).filter(e => 'object' !== typeof obj[e]).map(e => {
 				//console.log('REFRESH')
 				//console.log(e)
 				return (<div className='property-box' key={e}>
 					<div className='property-key'>
-						{e.key}
+						{e}
 					</div>
 					<div className='property-value'>
-						{e.value}
+						{obj[e].toString()}
 					</div>
 				</div>)
 			})):undefined
 		}
 		return (
 			<div className="properties-of-entry--list">
-				{listPropertiesOfEntry(this.props.propertiesOfEntry)}
+				{listPropertiesOfEntry(this.props.entry)}
 			</div>
 		)
 	};
 }
 
 
-export default SiteReferenceList;
+export default SimplePropertyList;

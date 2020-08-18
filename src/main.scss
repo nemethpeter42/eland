@@ -88,3 +88,12 @@ body {
 	border-radius:5px;
 	margin:1px;
 }
+
+.multi-column-container{
+	display: flex;
+	flex-direction: row;
+}
+
+.property-key{
+	font-weight: bold;
+}
