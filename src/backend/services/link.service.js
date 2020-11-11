@@ -17,6 +17,20 @@ class LinkService{
 	constructor(){
 	}
 	
+	duden_url_name_format = (word) => {
+		let charachtersToReplace = [
+			{from:'ä', to:'ae'},
+			{from:'ö', to:'oe'},
+			{from:'ü', to:'ue'},
+			{from:'ß', to:'sz'},
+			{from:'Ä', to:'Ae'},
+			{from:'Ö', to:'Oe'},
+			{from:'Ü', to:'Ue'},
+		];
+		charachtersToReplace.forEach(e=>{word=word.split(e.from).join(e.to)});
+		return word;
+	}
+	
 	getLinks = (word,languageCodes) => {
 		const encodeURI = (str, encoding) => {
 			if (!encoding || encoding == 'utf8' || encoding == 'utf-8') {
@@ -53,7 +67,7 @@ class LinkService{
 			return pages
 		}
 		//TODO  dinamikussá tenni
-		languageCodes = ['ja']
+		languageCodes = ['ice']
 		let commonReferenceSites = [
 			{
 				siteName: 'Google',
@@ -118,11 +132,15 @@ class LinkService{
 					pageGroups: [
 						{
 							groupMainPage: 'https://www.duden.de',
-							title: 'Keresés',
+							title: 'Duden',
 							pages: [
 								...firstNWordVariations( word ,inp => ({
 									title: 'Keresés(' +inp + ')',
 									url: 'https://www.duden.de/suchen/dudenonline/'+inp,
+								})),
+								...firstNWordVariations( word ,inp => ({
+									title: 'Közvetlen URL(' +inp + ') - nem mindig jó',
+									url: 'https://www.duden.de/rechtschreibung/'+this.duden_url_name_format(inp),
 								})),
 							],
 						},
